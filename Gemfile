@@ -8,6 +8,9 @@ gem "rails", "~> 7.1.5", ">= 7.1.5.1"
 gem 'bootstrap-sass'
 gem 'sassc-rails'
 gem 'bcrypt'
+gem 'faker'
+gem 'will_paginate', '~> 3.3'
+gem 'bootstrap-will_paginate', '~> 1.0.0'
 
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -69,6 +72,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "webdrivers"
   gem "rails-controller-testing"
   gem "minitest"
   gem "minitest-reporters"

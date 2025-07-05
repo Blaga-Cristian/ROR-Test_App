@@ -11,10 +11,17 @@
   </head>
 
   <body>
+  <%= javascript_include_tag "https://code.jquery.com/jquery-3.6.0.min.js" %>
+  <%= javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" %>
+    
     <%= render 'layouts/header' %>
     <div class="container">
+      <% flash.each do |msg_type, msg| %>
+        <%= content_tag(:div, msg, class: "alert alert-#{msg_type}") %>
+      <% end %>
       <%= yield %>
       <%= render 'layouts/footer' %>
+      <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
 </html>
