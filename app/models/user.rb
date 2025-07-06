@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
   enum role: { normal: 0, manager: 1, admin: 2 }
   attr_readonly   :role
-  attr_accessor   :remember_token
+  attr_accessor   :remember_token, :reset_token
 
   before_save   { self.email.downcase! }
   validates   :name, presence: true, length: { maximum: 50 }
@@ -38,5 +38,20 @@ class User < ApplicationRecord
   def forget
     update_columns(remember_digest: nil)
   end
+
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
+  
 
 end
