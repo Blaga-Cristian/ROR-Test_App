@@ -1,0 +1,28 @@
+<div id="user_entry_edit_form">
+	<%= form_with(scope: :user_entry, url: user_entry_path(@entry), method: :patch, remote: true) do |f| %>
+	  <div class="d-flex flex-column align-items-center" style="max-width: 500px; margin: auto;">
+	    
+	    <div class="field">
+		    <%= f.label :date %><br>
+		    <div class="datetime-select-inline">
+		      <%= f.datetime_select :date, discard_seconds: true, default: @entry.date || Time.zone.now %>
+		    </div>
+		  </div>
+		
+		  <div class="field">
+		    <%= f.label :time, "Time (minutes)" %><br>
+		    <%= f.number_field :time, min: 1, value: @entry.time %>
+		  </div>
+		
+		  <div class="field">
+		    <%= f.label :distance, "Distance (meters)" %><br>
+		    <%= f.number_field :distance, min: 1, value: @entry.distance %>
+		  </div>
+		
+		  <div class="actions">
+		    <%= f.submit "Submit" %>
+		  </div>
+	
+	  </div>
+	<% end %>  
+</div>

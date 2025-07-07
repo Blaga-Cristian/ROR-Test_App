@@ -1,4 +1,4 @@
-<% if true %>
+<% if !logged_in? %>
   <%= render 'shared/sign_up_home' %>
 <% else %>
   <%= render 'shared/logged_in_home' %>

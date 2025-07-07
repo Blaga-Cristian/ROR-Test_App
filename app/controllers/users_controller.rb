@@ -5,10 +5,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @entries = @user.user_entries.paginate(page: params[:page])
   end
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = get_users
   end
 
   def new
@@ -21,7 +22,10 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome!"
       redirect_to @user, status: :see_other
     else
-      render  'new', status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render 'new', status: :unprocessable_entity }
+        format.turbo_stream
+      end
     end
   end
 
@@ -35,14 +39,23 @@ class UsersController < ApplicationController
       flash[:success] = "Profile updated successfully"
       redirect_to @user, status: :see_other
     else
-      render 'edit', status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render 'edit', status: :unprocessable_entity }
+        format.turbo_stream
+      end
     end
   end
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
-    redirect_to users_url, status: :see_other
+    flash.now[:success] = "User deleted"
+
+    @users = get_users
+
+    respond_to do |format|
+      format.html { redirect_to users_url, status: :see_other }
+      format.turbo_stream
+    end
   end
 
   private
@@ -55,19 +68,15 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(root_url, status: :see_other) unless current_user?(@user)
     end
-
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url, status: :see_other
-      end
-    end
-
+ 
     def admin_or_manager
       unless (current_user.admin? || current_user.manager?)
         redirect_to root_url
       end
+    end
+
+    def get_users
+      User.paginate(page: params[:page])
     end
     
 end

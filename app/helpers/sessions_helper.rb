@@ -27,6 +27,10 @@ module SessionsHelper
       end
     end
   end
+
+  def current_user_entries
+    current_user.user_entries.paginate(page: params[:page]) if !current_user.nil?
+  end
   
   def logged_in?
     !current_user.nil?

@@ -1,0 +1,15 @@
+<li id="user_entry-<%= user_entry.id %>">
+  <span class="content">
+    <div><strong>Distance:</strong> <%= user_entry.format_distance %></div>
+    <div><strong>Time:</strong> <%= user_entry.format_time %></div>
+    <div><strong>Date:</strong> <%= user_entry.format_date %></div>
+    <div class="text-primary fw-bold mt-2">Avg Speed: <%= user_entry.format_average_speed %></div>
+  </span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(user_entry.created_at) %> ago.
+    <% if current_user && current_user.can_change?(user_entry) %>
+      <%= link_to "edit", edit_user_entry_path(user_entry) %> |
+      <%= link_to "delete", user_entry, method: :delete, data: { confirm: "You sure?" } %>
+    <% end %>
+  </span>
+</li>

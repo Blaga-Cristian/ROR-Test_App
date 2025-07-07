@@ -1,0 +1,24 @@
+<div id="user_entry_create_form">
+	<%= form_with(scope: :user_entry, url: user_entries_path, method: :post, remote: true) do |f| %>
+	  <div class="field">
+	    <%= f.label :date %><br>
+	    <div class="datetime-select-inline">
+	      <%= f.datetime_select :date, discard_seconds: true %>
+	    </div>
+	  </div>
+	
+	  <div class="field">
+	    <%= f.label :time, "Time (minutes)" %><br>
+	    <%= f.number_field :time, min: 1 %>
+	  </div>
+	
+	  <div class="field">
+	    <%= f.label :distance, "Distance (meters)" %><br>
+	    <%= f.number_field :distance, min: 1 %>
+	  </div>
+	
+	  <div class="actions">
+	    <%= f.submit "Create Entry" %>
+	  </div>
+	<% end %>  
+</div>

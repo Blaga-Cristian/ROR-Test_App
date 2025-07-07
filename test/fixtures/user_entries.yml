@@ -1,0 +1,37 @@
+michael_run_morning:
+  time: 75
+  distance: 1500
+  date: <%= 12.hours.ago %>
+  user: michael
+
+michael_cycling_weekend:
+  time: 200
+  distance: 8000
+  date: <%= 2.days.ago %>
+  user: michael
+
+michael_swim_evening:
+  time: 60
+  distance: 1200
+  date: <%= 3.minutes.ago %>
+  user: michael
+
+michael_hike_mountains:
+  time: 90
+  distance: 6000
+  date: <%= 3.days.ago %>
+  user: michael
+
+michael_run_sprint:
+  time: 45
+  distance: 700
+  date: <%= 6.hours.ago %>
+  user: michael
+
+<% 30.times do |n| %>
+entry_<%= n %>:
+  time: <%= rand(30..180) %> 
+  distance: <%= rand(100..10000) %>
+  date: <%= rand(1..30).days.ago %>
+  user: michael
+<% end %>

@@ -1,0 +1,9 @@
+<div id="email_form">
+  <%= form_with(url: password_resets_path, scope: :password_reset, remote: true) do |f| %>
+    <%= f.label :email %>
+    <%= f.email_field :email, class: 'form-control' %>
+    
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  <% end %>
+</div>
+

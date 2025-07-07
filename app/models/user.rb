@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :user_entries, dependent: :destroy
 
   enum role: { normal: 0, manager: 1, admin: 2 }
   attr_readonly   :role
@@ -52,6 +53,13 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  
-
+  def can_change?(object)
+    if object.class == UserEntry
+      return admin? || id == object.user_id
+    elsif object.class == User
+      return self != object && (admin? || manager?)
+    else
+      return false
+    end
+  end
 end

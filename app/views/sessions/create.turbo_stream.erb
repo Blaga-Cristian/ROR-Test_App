@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "login_form" do %>
+  <%= render partial: "sessions/login_form", locals: { session: @user_session } %>
+<% end %>
+
+<%= turbo_stream.replace "flash_messages" do %>
+  <%= render 'shared/flash' %>
+<% end %>

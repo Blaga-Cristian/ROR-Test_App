@@ -16,7 +16,10 @@ class PasswordResetsController < ApplicationController
       redirect_to root_url, status: :see_other
     else
       flash.now[:danger] = "Email address not found"
-      render 'new', status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render 'new', status: :unprocessable_entity }
+        format.turbo_stream
+      end
     end
   end
 
@@ -27,14 +30,20 @@ class PasswordResetsController < ApplicationController
   def update
     if params[:user][:password].empty?
       @user.errors.add(:password, "can't be empty")
-      render 'edit', status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render 'edit', status: :unprocessable_entity }
+        format.turbo_stream
+      end
     elsif @user.update(user_params)
       log_in @user
       @user.update_attribute(:reset_digest, nil)
       flash[:success] = "Password has been reset"
       redirect_to @user, status: :see_other
     else
-      render 'edit', status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render 'edit', status: :unprocessable_entity }
+        format.turbo_stream
+      end
     end
   end
 
