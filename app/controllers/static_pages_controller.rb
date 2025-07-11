@@ -3,6 +3,11 @@ class StaticPagesController < ApplicationController
     if logged_in? 
       @entries = current_user_entries
     end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def help

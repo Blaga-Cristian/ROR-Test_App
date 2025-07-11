@@ -1,0 +1,13 @@
+<%= turbo_stream.replace "flash_messages" do %>
+  <%= render 'shared/flash' %>
+<% end %>
+
+<% if logged_in? %>
+  <%= turbo_stream.replace "user_entries_stat" do %>
+    <%= render partial: 'user_entries/user_entries_stat', locals: { entries: current_user_entries } %>
+  <% end %>
+
+  <%= turbo_stream.replace "user_entries_list" do %>
+    <%= render partial: 'user_entries/user_entries_list', locals: { entries: current_user_entries } %>
+  <% end %>
+<% end %>

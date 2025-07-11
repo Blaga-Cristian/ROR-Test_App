@@ -1,0 +1,20 @@
+<div id="weekly_report">
+  <table class="table">
+	  <thead>
+	    <tr>
+	      <th>Week Starting</th>
+	      <th>Total Distance (km)</th>
+	      <th>Avg Speed (km/h)</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @weekly_stats.sort_by { |week_start, _| week_start }.reverse.each do |week_start, stats| %>
+	      <tr>
+	        <td><%= "#{week_start.strftime("%b %d")} - #{(week_start + 6.days).strftime("%b %d, %Y")}" %></td>
+	        <td><%= stats[:total_distance] %></td>
+	        <td><%= stats[:average_speed] %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table> 
+</div>

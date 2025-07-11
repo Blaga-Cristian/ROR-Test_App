@@ -2,8 +2,13 @@
   <%= render 'shared/flash' %>
 <% end %>
 
+
 <%= turbo_stream.replace "user_entry_create_form" do %>
   <%= render 'shared/user_entry_create_form' %>
+<% end %>
+
+<%= turbo_stream.replace "user_entries_stat" do %>
+  <%= render partial: 'user_entries/user_entries_stat', locals: { entries: current_user_entries } %>
 <% end %>
 
 <%= turbo_stream.replace "user_entries_list" do %>

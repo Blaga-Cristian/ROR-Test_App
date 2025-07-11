@@ -44,5 +44,20 @@ class UserEntry < ApplicationRecord
     "#{average_speed}km/h"
   end
 
+  def UserEntry.weekly_stats(user)
+    entries = where(user: user)
+              .group_by { |e| e.date.beginning_of_week }
+
+    entries.transform_values do |week_entries|
+      total_distance = week_entries.sum(&:distance)
+      total_time = week_entries.sum(&:time)
+
+      {
+        average_speed: total_time.positive? ? ((total_distance / 1000.0) / (total_time.to_f / 60.0)).round(2) : 0,
+        total_distance: (total_distance / 1000.0).round(2)
+      }
+    end
+  end
+
 end
 

@@ -1,3 +1,25 @@
 <div id="entry_filter">
-  
+  <%= form_with url: root_path, method: :get, remote: true, data: { turbo_frame: "entries_frame" } do %>
+    <div class="field">
+      <%= label_tag :from, "From date" %><br>
+      <div class="datetime-select-inline">
+        <%= date_field_tag :from, params[:from] %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= label_tag :to, "To date" %><br>
+      <div class="datetime-select-inline">
+        <%= date_field_tag :to, params[:to] %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= submit_tag "Filter", class: "btn btn-primary" %>
+    </div>
+    
+    <div class="actions">
+      <%= link_to "Reset filter", root_path, data: { turbo_frame: "entries_frame" }, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
 </div>

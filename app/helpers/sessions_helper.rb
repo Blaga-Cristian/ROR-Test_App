@@ -29,7 +29,22 @@ module SessionsHelper
   end
 
   def current_user_entries
-    current_user.user_entries.paginate(page: params[:page]) if !current_user.nil?
+    if current_user.nil?
+      return nil
+    end
+
+    entries = current_user.user_entries.paginate(page: params[:page])
+    
+    if params[:from].present? && params[:to].present?
+      from = Date.parse(params[:from]) rescue nil
+      to = Date.parse(params[:to]) rescue nil
+
+      if from && to
+        entries = entries.where(date: from..to)
+      end
+    end
+
+    return entries
   end
   
   def logged_in?

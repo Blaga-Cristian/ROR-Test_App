@@ -1,5 +1,5 @@
 class UserEntriesController < ApplicationController
-  before_action   :logged_in_user,  only: [:create, :update, :destroy]
+  before_action   :logged_in_user,  only: [:weekly_report, :create, :update, :destroy]
   before_action   :correct_data,    only: [:edit, :update, :destroy]
   
   def create
@@ -43,6 +43,10 @@ class UserEntriesController < ApplicationController
         format.turbo_stream
       end
     end
+  end
+
+  def weekly_report
+    @weekly_stats = UserEntry.weekly_stats(current_user) 
   end
 
   private
