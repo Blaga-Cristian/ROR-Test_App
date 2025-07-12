@@ -48,6 +48,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not duplicate_user.valid?
   end
 
+  test "emails should be saved as lower_case" do
+    mixed_case_email = "MyEmAiL@GMail.com"
+    @user.email = mixed_case_email
+    @user.save
+    @user.reload
+    assert_equal mixed_case_email.downcase, @user.email
+  end
+
   test "password should not be blank" do
     @user.password = @user.password_confirmation = "       "
     assert_not @user.valid?
@@ -60,6 +68,32 @@ class UserTest < ActiveSupport::TestCase
 
   test "authenticated? should return fals for a user with nil digest" do
     assert_not @user.authenticated?(:remember, '')
+  end
+
+  test "associated user_entries should be deleted" do
+    @user.save
+    @user.user_entries.create!(distance: 100, time: 100, date: Time.zone.now)
+    assert_difference 'UserEntry.count', -1 do
+      @user.destroy
+    end
+  end
+
+  test "right entries should be shown" do
+    user = users(:michael)
+    user.user_entries.each do |entry| 
+      assert_equal user.id, entry.user_id
+    end
+  end
+
+  test "entries should be shown latest to oldest" do
+    user = users(:michael)
+    prv = nil
+    user.user_entries.each do |entry|
+      if !prv.nil?
+          assert entry.date <= prv
+      end
+      prv = entry.date
+    end
   end
 
 end

@@ -1,0 +1,5 @@
+<h1>Account activation</h1>
+
+<p>To activate the account that you created at the app please click the link below</p>
+<%= link_to "Activate account", edit_account_activation_url(@user.activation_token, email: @user.email) %>
+

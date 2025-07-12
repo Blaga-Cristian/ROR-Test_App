@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_06_092628) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_11_190254) do
   create_table "user_entries", force: :cascade do |t|
     t.datetime "date"
     t.integer "distance"
@@ -32,6 +32,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_06_092628) do
     t.integer "role", default: 0
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

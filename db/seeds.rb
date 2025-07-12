@@ -2,7 +2,9 @@ User.create!(name: "Example User",
               email: "normal@gmail.com",
               password: 'password',
               password_confirmation: 'password',
-              role: 0)
+              role: 0,
+              activated: true,
+              activated_at: Time.zone.now)
 
 User.create!(name: "Example Manager",
               email: "manager@gmail.com",
@@ -14,7 +16,9 @@ User.create!(name: "Example Admin",
               email: "admin@gmail.com", 
               password: "password", 
               password_confirmation: "password",
-              role: 2)
+              role: 2,
+              activated: true,
+              activated_at: Time.zone.now)
 
 99.times do |n|
   name = Faker::Name.name
@@ -24,7 +28,9 @@ User.create!(name: "Example Admin",
       email: email,
       password: password,
       password_confirmation: password,
-      role: 0)
+      role: 0,
+      activated: true,
+      activated_at: Time.zone.now)
 end
 
 

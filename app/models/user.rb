@@ -3,9 +3,11 @@ class User < ApplicationRecord
 
   enum role: { normal: 0, manager: 1, admin: 2 }
   attr_readonly   :role
-  attr_accessor   :remember_token, :reset_token
+  attr_accessor   :remember_token, :reset_token, :activation_token
 
   before_save   { self.email.downcase! }
+  before_create :create_activation_digest
+
   validates   :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
                       #URI::MailTo::EMAIL_REGEXP
@@ -30,6 +32,10 @@ class User < ApplicationRecord
     update_columns(remember_digest: User.digest(remember_token))
   end
 
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
@@ -43,6 +49,10 @@ class User < ApplicationRecord
   def create_reset_digest
     self.reset_token = User.new_token
     update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
   end
 
   def send_password_reset_email
@@ -63,4 +73,9 @@ class User < ApplicationRecord
     end
   end
 
+  private
+    def create_activation_digest
+      self.activation_token = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
 end

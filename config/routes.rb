@@ -9,6 +9,18 @@ Rails.application.routes.draw do
   delete      '/logout',          to: 'sessions#destroy'
   get         '/weekly_report',   to: 'user_entries#weekly_report'
   resources   :users
-  resources   :password_resets,   only: [:new, :create, :edit, :update]
-  resources   :user_entries,      only: [:edit, :update, :create, :destroy]
+  resources   :account_activations,   only: [:edit]
+  resources   :password_resets,       only: [:new, :create, :edit, :update]
+  resources   :user_entries,          only: [:edit, :update, :create, :destroy]
+
+  namespace :api do
+    namespace :v1 do
+      
+      resources :users,         only: [:index, :create, :show, :update, :destroy]
+      resources :user_entries,  only: [:index, :create, :show, :update, :destroy]
+    
+      post  'login',  to: 'sessions#create'
+    
+    end
+  end
 end

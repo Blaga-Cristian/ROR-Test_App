@@ -48,10 +48,10 @@ class UserEntriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_no_difference 'UserEntry.count' do
-      delete user_entry_path(@entry), params: { user_entry: {
-        time: 100,
-        distance: 1000,
-        date: Time.zone.now } }
+      delete user_entry_path(@entry)#, params: { user_entry: {
+        #time: 100,
+        #distance: 1000,
+        #date: Time.zone.now } }
     end
 
   end
@@ -97,11 +97,36 @@ class UserEntriesControllerTest < ActionDispatch::IntegrationTest
     assert_in_delta date.to_i, @entry.date.to_i, 1
 
     assert_difference 'UserEntry.count', -1 do
-      delete user_entry_path(@entry), params: { user_entry: {
-        time: 100,
-        distance: 1000,
-        date: Time.zone.now } }
+      delete user_entry_path(@entry)#, params: { user_entry: {
+        #time: 100,
+        #distance: 1000,
+        #date: Time.zone.now } }
     end
   end
+
+  test "post should cause a turbo_stream response" do
+    log_in_as(@user)
+    get root_url
+    
+    assert_difference 'UserEntry.count', 1 do
+      post user_entries_path(format: :turbo_stream), params: { user_entry: {
+          time: 100,
+          distance: 100,
+          date: Time.zone.now } }
+    end
+    
+    assert_response :success
+    assert_match "text/vnd.turbo-stream.html", response.content_type
+
+    entry = @user.user_entries.first
+
+    assert_difference 'UserEntry.count', -1 do
+      delete user_entry_path(entry, format: :turbo_stream)
+    end
+
+    assert_response :success
+    assert_match "text/vnd.turbo-stream.html", response.content_type
+  end
+
 
 end

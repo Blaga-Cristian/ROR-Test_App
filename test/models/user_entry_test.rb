@@ -45,4 +45,16 @@ class UserEntryTest < ActiveSupport::TestCase
     end
   end
 
+  test "format distance shows correclty" do
+    @entry.distance = 100
+    assert_match /^[0-9]*m$/, @entry.format_distance
+    @entry.distance = 10000
+    assert_match /^[0-9\.]*km$/, @entry.format_distance
+  end
+
+  test "average speed works correctly" do
+    @entry.time = 0
+    assert_nil @entry.average_speed
+  end
+
 end

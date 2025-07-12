@@ -37,6 +37,9 @@ class UserEntry < ApplicationRecord
   end
 
   def average_speed
+    if time == 0
+      return nil
+    end
     ((distance / 1000.0) / (time / 60.0)).round(1)  
   end
 
