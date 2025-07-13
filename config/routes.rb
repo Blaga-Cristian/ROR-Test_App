@@ -16,11 +16,20 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       
-      resources :users,         only: [:index, :create, :show, :update, :destroy]
-      resources :user_entries,  only: [:index, :create, :show, :update, :destroy]
-    
-      post  'login',  to: 'sessions#create'
-    
+      resources :users,           only: [:index, :show, :update, :destroy]  
+      post  'signup',             to: 'users#create' 
+
+      resources :password_resets, only: [:create]
+
+      resources :user_entries,    only: [:index, :create, :show, :update, :destroy] do
+        collection do
+          get 'my_entries'
+          get 'weekly_report'
+        end
+      end
+      
+      post  'login',              to: 'sessions#create'
+
     end
   end
 end

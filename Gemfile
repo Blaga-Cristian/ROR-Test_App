@@ -10,6 +10,7 @@ gem 'sassc-rails'
 gem 'bcrypt'
 gem 'faker'
 gem 'jwt'
+gem 'react-rails'
 gem 'will_paginate', '~> 3.3'
 gem 'bootstrap-will_paginate', '~> 1.0.0'
 

@@ -10,7 +10,9 @@ User.create!(name: "Example Manager",
               email: "manager@gmail.com",
               password: "password", 
               password_confirmation: "password",
-              role: 1)
+              role: 1,
+              activated: true,
+              activated_at: Time.zone.now)
 
 User.create!(name: "Example Admin",
               email: "admin@gmail.com", 

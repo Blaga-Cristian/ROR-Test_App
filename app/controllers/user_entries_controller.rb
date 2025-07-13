@@ -46,7 +46,7 @@ class UserEntriesController < ApplicationController
   end
 
   def weekly_report
-    @weekly_stats = UserEntry.weekly_stats(current_user) 
+    @weekly_stats = UserEntry.weekly_stats(current_user)
   end
 
   private
