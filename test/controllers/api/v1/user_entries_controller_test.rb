@@ -97,4 +97,16 @@ class Api::V1::UserEntriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :no_content
   end
 
+  test "my entries should show all entries" do
+    get my_entries_api_v1_user_entries_path, headers: api_log_in_header(@user)
+    @user.user_entries.each do |entry|
+      assert_includes json_response, api_entry_format(entry)
+    end
+  end
+
+  test "weekly report should show correct data" do
+    get weekly_report_api_v1_user_entries_path, headers: api_log_in_header(@user)
+    assert_equal json_response.count, UserEntry.weekly_stats(@user).count
+  end
+
 end
