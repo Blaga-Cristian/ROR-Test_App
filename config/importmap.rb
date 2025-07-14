@@ -12,3 +12,6 @@ pin "react-dom", to: "https://ga.jspm.io/npm:react-dom@18.2.0/index.js"
 pin "react-dom/client", to: "https://ga.jspm.io/npm:react-dom@18.2.0/client.js"
 pin_all_from "app/javascript/components", under: "components", to: "components"
 pin "scheduler", to: "https://ga.jspm.io/npm:scheduler@0.23.0/index.js"
+
+pin "dropdown", to: "dropdown.js"
+pin "init_react", to: "init_react.js"
