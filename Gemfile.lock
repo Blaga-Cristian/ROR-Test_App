@@ -83,10 +83,6 @@ GEM
     ansi (1.5.0)
     autoprefixer-rails (10.4.21.0)
       execjs (~> 2)
-    babel-source (5.8.35)
-    babel-transpiler (0.7.0)
-      babel-source (>= 4.0, < 6)
-      execjs (~> 2.0)
     base64 (0.3.0)
     bcrypt (3.1.20)
     benchmark (0.4.1)
@@ -228,12 +224,6 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
-    react-rails (3.2.1)
-      babel-transpiler (>= 0.7.0)
-      connection_pool
-      execjs
-      railties (>= 3.2)
-      tilt
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
@@ -313,7 +303,6 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.5, >= 7.1.5.1)
   rails-controller-testing
-  react-rails
   sassc-rails
   selenium-webdriver
   sprockets-rails

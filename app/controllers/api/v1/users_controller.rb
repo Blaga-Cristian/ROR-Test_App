@@ -24,7 +24,7 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     if @user
-      render json: @user, status: :ok
+      render json: safe_format(@user), status: :ok
     else
       render json: { error: 'User not found' }, status: :not_found
     end
