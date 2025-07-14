@@ -3,6 +3,8 @@
     "@babel/core": "^7.28.0",
     "@babel/plugin-transform-react-jsx": "^7.27.1",
     "@babel/preset-react": "^7.27.1",
+    "bootstrap": "3.4.1",
+    "jquery": "3.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   }
