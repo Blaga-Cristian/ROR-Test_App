@@ -13,7 +13,7 @@ class PasswordResetsController < ApplicationController
       @user.create_reset_digest
       @user.send_password_reset_email
       flash[:info] = "Email sent with password reset instructions"
-      redirect_to root_url, status: :see_other
+      redirect_to root_url(format: :html), status: :see_other
     else
       flash.now[:danger] = "Email address not found"
       respond_to do |format|
