@@ -59,7 +59,8 @@ class ActionDispatch::IntegrationTest
       time: entry.time,
       user_id: entry.user_id,
       created_at: entry.created_at.iso8601(3),
-      updated_at: entry.updated_at.iso8601(3) }
+      updated_at: entry.updated_at.iso8601(3),
+      location: entry.location }
   end
 
   def api_log_in_header(user)

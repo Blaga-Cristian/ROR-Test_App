@@ -18,11 +18,6 @@
 
   </aside>
   <div class="col-md-8">
-    <% if current_user.user_entries.any? %>
-      <turbo-frame id="entries_frame">
-        <%= render partial: 'user_entries/user_entries_stat', locals: { entries: current_user_entries } %>
-        <%= render partial: 'user_entries/user_entries_list', locals: { entries: current_user_entries } %>
-      </turbo-frame>
-    <% end %>
+    <%= render 'user_entries/stat_list' %>
   </div>
 </div>

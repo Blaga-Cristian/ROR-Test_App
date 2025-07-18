@@ -2,10 +2,6 @@
   <%= render 'shared/flash' %>
 <% end %>
 
-<%= turbo_stream.replace "user_entries_stat" do %>
-  <%= render partial: 'user_entries/user_entries_stat', locals: { entries: current_user_entries } %>
-<% end %>
-
-<%= turbo_stream.replace "user_entries_list" do %>
-  <%= render partial: 'user_entries/user_entries_list', locals: { entries: current_user_entries } %>
+<%= turbo_stream.replace "entries_frame" do %>
+  <%= render 'user_entries/stat_list' %>
 <% end %>

@@ -16,6 +16,12 @@
 	    <%= f.label :distance, "Distance (meters)" %><br>
 	    <%= f.number_field :distance, min: 1 %>
 	  </div>
+
+    <div class="field">
+        <%= f.label :location, "Location" %><br>
+        <%= f.text_field :location %>
+    </div>
+
 	
 	  <div class="actions">
 	    <%= f.submit "Create Entry", class: "btn btn-primary" %>

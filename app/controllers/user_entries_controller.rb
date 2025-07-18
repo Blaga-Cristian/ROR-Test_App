@@ -52,7 +52,7 @@ class UserEntriesController < ApplicationController
   private
     
     def user_entry_params
-      params.require(:user_entry).permit(:time, :distance, :date)
+      params.require(:user_entry).permit(:time, :distance, :date, :location)
     end
 
     def correct_data

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_11_190254) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_18_150929) do
   create_table "user_entries", force: :cascade do |t|
     t.datetime "date"
     t.integer "distance"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_11_190254) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "location"
     t.index ["user_id", "date"], name: "index_user_entries_on_user_id_and_date"
     t.index ["user_id"], name: "index_user_entries_on_user_id"
   end

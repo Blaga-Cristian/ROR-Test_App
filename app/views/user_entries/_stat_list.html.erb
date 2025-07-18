@@ -1,0 +1,7 @@
+<turbo-frame id="entries_frame">
+  <% if current_user.user_entries.any? %> 
+    <%= render partial: 'user_entries/user_entries_stat', locals: { entries: current_user_entries } %>
+    <%= render partial: 'user_entries/user_entries_list', locals: { entries: current_user_entries } %>
+  <% end %>
+</turbo-frame>
+
