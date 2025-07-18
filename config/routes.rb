@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       resources :users,           only: [:index, :show, :update, :destroy]  
       post  'signup',             to: 'users#create' 
 
-      resources :password_resets, only: [:create]
+      resources :password_resets, only: [:create, :update]
 
       resources :user_entries,    only: [:index, :create, :show, :update, :destroy] do
         collection do

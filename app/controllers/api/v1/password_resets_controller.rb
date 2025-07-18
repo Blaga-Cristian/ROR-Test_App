@@ -1,7 +1,7 @@
 class Api::V1::PasswordResetsController < ApplicationController
-  #before_action :get_user,          only: [:update]
-  #before_action :valid_user,        only: [:update]
-  #before_action :check_expiration,  only: [:update]
+  before_action :get_user,          only: [:update]
+  before_action :valid_user,        only: [:update]
+  before_action :check_expiration,  only: [:update]
 
   def create
     @user = User.find_by(email: params[:password_reset][:email].downcase)
@@ -14,16 +14,17 @@ class Api::V1::PasswordResetsController < ApplicationController
     end
   end
 
-#  def update
-#    if user_params[:password].empty? 
-#      @user.errors.add(:password, "can't be empty")
-#      render json: { errors: @user.errors }, status: :unprocessable_entity
-#    elsif @user.update(user_params)
-#      render json: safe_format(@user), status: :ok
-#    else
-#      render json: { error: 'Could not reset password' }, status: :unprocessable_entity
-#    end
-#  end
+  def update
+    if user_params[:password].empty? 
+      @user.errors.add(:password, "can't be empty")
+      render json: { errors: @user.errors }, status: :unprocessable_entity
+    elsif @user.update(user_params)
+      render json: safe_format(@user), status: :ok
+      @user.update_attribute(:reset_digest, nil)
+    else
+      render json: { errors: @user.errors }, status: :unprocessable_entity
+    end
+  end
 
   private
 
