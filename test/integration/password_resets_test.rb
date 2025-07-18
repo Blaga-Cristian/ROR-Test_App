@@ -23,7 +23,7 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
       assert_not_equal @user.reset_digest, @user.reload.reset_digest
       assert_equal 1, ActionMailer::Base.deliveries.size
       assert_not flash.empty?
-      assert_redirected_to root_url
+      assert_redirected_to root_url(format: :html)
 
       #Password reset form
       user = assigns(:user)
